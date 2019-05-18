@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es2018",
+        "noImplicitAny": true,
+        "pretty": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": "./src",
+        "rootDir": "./src",
+        "paths": {
+            "*": ["node_modules/*"],
+            "config/*": ["src/config/*"],
+            "modules/*": ["src/modules/*"]
+        }
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
