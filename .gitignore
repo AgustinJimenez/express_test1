@@ -4,3 +4,7 @@
 
 *.pdf
 *.env
+src/logs/*
+!src/logs/.gitkeep
+yarn.lock
+package-lock.json

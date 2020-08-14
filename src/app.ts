@@ -1,24 +1,27 @@
-import dotenv from "dotenv"
-import express from "express"
+import express, { Express } from "express"
 import http from "http"
-import app_setup from "./setup/AppSetup"
+import AppSetup from "./setup/AppSetup"
+import "reflect-metadata"
+import listEndpoints from "express-list-endpoints"
 
-dotenv.config()
-const PORT = process.env.SERVER_PORT
-const app: express.Application = express()
-app_setup( app )
-// list all endpoints to console
-// tslint:disable-next-line:no-console
-console.log( require("express-list-endpoints")( app ) )
-// const httpsOptions: https.ServerOptions = {}
+const App = async () => {
+	const HOST: string = process.env.SERVER_HOST
+	const PORT: number = +process.env.SERVER_PORT
+	const isProduction: boolean = process.env.IS_PRODUCTION === "true"
+	const app: Express = express()
+	await AppSetup(app)
+	// list all endpoints to console
+	if (!isProduction) console.log(listEndpoints(app))
+	// const httpsOptions: https.ServerOptions = {}
 
-http.createServer(app).listen(PORT, () => 
-{
-    // tslint:disable-next-line: no-console
-    console.log
-    (
-        `<=========================================>`,
-        `Server started at http://localhost:${ PORT }!`,
-        `<=========================================>`
-    )
-})
+	http.createServer(app).listen(
+		PORT,
+		// HOST,
+		// 511,
+		() => {
+			if (process.env.IS_PRODUCTION != "true")
+				console.log(`<=========================================>`, `Server started at ${HOST}!`, `<=========================================>`)
+		}
+	)
+}
+App()

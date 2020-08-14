@@ -1,10 +1,3 @@
-const modules_list: string[] = 
-[
-    "Home",
-    "Pago",
-    "BilleteraPersonal",
-]
+const modules_list: string[] = ["Sales", "Home", "Testing"]
 
-export {
-    modules_list,
-}
+export { modules_list }

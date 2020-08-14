@@ -1,26 +1,27 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
-    ],
-    "jsRules": {},
-    "rules": {
-        "trailing-comma": [ false ],
-        "semicolon": [ false ],
-        "one-line": [ false ],
-        "no-trailing-whitespace": [ false ],
-        "variable-name": [ false ],
-        "indent": [ true,  "spaces"],
-        "new-parens": false,
-        "member-access": false,
-        "no-consecutive-blank-lines": false,
-        "eofline": false,
-        "curly": false,
-        "ordered-imports": false,
-        "no-var-requires": false,
-        "object-literal-sort-keys": false,
-        "no-console": false
-        
-    },
-    "rulesDirectory": []
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"jsRules": {},
+	"rules": {
+		"interface-name": false,
+		"max-line-length": false,
+		"no-string-literal": false,
+		"ban-types": false,
+		"trailing-comma": [false],
+		"semicolon": [false],
+		"one-line": [false],
+		"no-trailing-whitespace": [false],
+		"variable-name": [false],
+		"indent": [false, "tabs"],
+		"new-parens": false,
+		"member-access": false,
+		"no-consecutive-blank-lines": false,
+		"eofline": false,
+		"curly": false,
+		"ordered-imports": false,
+		"no-var-requires": false,
+		"object-literal-sort-keys": false,
+		"no-console": false
+	},
+	"rulesDirectory": []
 }
