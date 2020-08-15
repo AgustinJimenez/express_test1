@@ -13,4 +13,13 @@ export default class TestingController {
 			response.json({ unix, utc })
 		},
 	]
+	public static whoami = () => [
+		async (request: Request, response: Response, _next: NextFunction) => {
+			response.json({
+				ipaddress: request.ip,
+				software: request.headers["user-agent"],
+				language: request.headers["accept-language"],
+			})
+		},
+	]
 }
