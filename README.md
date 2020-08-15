@@ -31,7 +31,7 @@ cp .env.sample .env
 -   SERVE
 
 ```
-yarn start
+yarn dev
 ```
 
 # PRODUCTION DEPLOY

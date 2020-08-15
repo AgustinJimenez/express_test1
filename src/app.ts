@@ -14,14 +14,9 @@ const App = async () => {
 	if (!isProduction) console.log(listEndpoints(app))
 	// const httpsOptions: https.ServerOptions = {}
 
-	http.createServer(app).listen(
-		PORT,
-		// HOST,
-		// 511,
-		() => {
-			if (process.env.IS_PRODUCTION != "true")
-				console.log(`<=========================================>`, `Server started at ${HOST}!`, `<=========================================>`)
-		}
-	)
+	http.createServer(app).listen(PORT, HOST, () => {
+		if (process.env.IS_PRODUCTION !== "true")
+			console.log(`<=========================================>`, `Server started at port ${HOST}:${PORT}!`, `<=========================================>`)
+	})
 }
 App()
