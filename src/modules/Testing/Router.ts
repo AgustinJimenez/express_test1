@@ -4,3 +4,4 @@ export default (app: Application) =>
 	Router()
 		.get("/timestamp/:date_string?", TestingController.timestampMicroserviceForFCC())
 		.get("/whoami", TestingController.whoami())
+		.post("/shorturl/new", TestingController.shorturl_new())
