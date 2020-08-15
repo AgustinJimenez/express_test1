@@ -3,11 +3,14 @@ import { OK } from "http-status-codes"
 export default class TestingController {
 	public static timestampMicroserviceForFCC = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			let date_string: string = request.params.date_string
+			const date = request.params.date_string ? new Date(request.params.date_string) : new Date()
 
-			console.log("HERE ====> ", date_string)
+			if (isNaN(date.getTime())) response.json({ error: "Invalid Date" })
 
-			response.sendStatus(OK).send("Here is timestampMicroserviceForFCC")
+			const unix = date.getTime()
+			const utc = date.toUTCString()
+
+			response.json({ unix, utc })
 		},
 	]
 }
