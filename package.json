@@ -8,10 +8,9 @@
 		"lint": "tslint -c tslint.json -p tsconfig.json --fix",
 		"tsc": "tsc",
 		"build": "npm-run-all clean lint tsc",
-		"start": "ts-node src/app.ts",
+		"start": "nodemon --watch src -e ts,ejs --exec ts-node ./src/app.ts",
+		"s": "ts-node src/app.ts",
 		"dev:start": "npm-run-all build start",
-		"d:s": "yarn run dev:start",
-		"dev": "nodemon --watch src -e ts,ejs --exec ts-node ./src/app.ts",
 		"format:all": "prettier --write '**/*.ts'",
 		"f:a": "npm-run-all format:all",
 		"test": "echo \"Error: no test specified\" && exit 1"

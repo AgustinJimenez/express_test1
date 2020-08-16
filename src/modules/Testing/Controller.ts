@@ -3,7 +3,7 @@ import { BAD_REQUEST } from "http-status-codes"
 import dns from "dns"
 import { User } from "../../entities/User"
 import { Exercise } from "../../entities/Exercise"
-import { request } from "http"
+import { MoreThan, QueryBuilder } from "typeorm"
 export default class TestingController {
 	/*
 		@url: /api/v1/timestamp/:date_string?
@@ -94,13 +94,13 @@ export default class TestingController {
 	*/
 	public static add_exercise = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			const data: any = {
-				userId: request.body.userId,
+			Exercise.create({
+				user: request.body.userId,
 				description: request.body.description,
 				duration: request.body.duration,
 				date: request.body.date,
-			}
-			await Exercise.create(data)
+			}).save()
+
 			const user = await User.find({ relations: ["exercises"], where: { id: request.body.userId } })
 
 			response.json(user)
@@ -115,9 +115,16 @@ export default class TestingController {
 	*/
 	public static exercise_log = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			const user = await User.find(request.body.userId)
-			console.log("HERE ===> ", user)
-			response.json(user)
+			const user: User = await User.findOne(request.body.userId, {
+				relations: ["exercises"],
+
+				where: (query: any) => {
+					if (!!request.body.from) query.where(`User__exercises.date >= :date_from`, { date_from: request.body.from })
+					if (!!request.body.to) query.where(`User__exercises.date <= :date_to`, { date_to: request.body.to })
+					//if (!!request.body.limit) query.take(request.body.limit)
+				},
+			})
+			return response.json({ ...user, exercisesCount: user.exercises.length })
 		},
 	]
 }

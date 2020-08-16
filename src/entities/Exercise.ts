@@ -21,7 +21,9 @@ export class Exercise extends BaseEntity {
 
 	@ManyToOne(
 		(type: any) => User,
-		(user: any) => user.exercises
+		(user: any) => user.exercises,
+		{ nullable: false }
 	)
+	@JoinColumn({ name: "user_id" })
 	user: User
 }
