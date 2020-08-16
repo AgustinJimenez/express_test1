@@ -1,5 +1,6 @@
 import { Logger } from "typeorm"
 import log from "./LoggerProvider"
+import { QueryRunner } from "typeorm"
 
 export class DatabaseORMLogger implements Logger {
 	logQuery(query: string, parameters?: any[], queryRunner?: import("typeorm").QueryRunner) {
@@ -17,22 +18,23 @@ export class DatabaseORMLogger implements Logger {
 
 		// throw new Error("Method not implemented.");
 	}
-	logQueryError(error: string, query: string, parameters?: any[], queryRunner?: import("typeorm").QueryRunner) {
+	logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
+		log.error({ error, query, parameters })
 		// throw new Error("Method not implemented.");
 	}
-	logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: import("typeorm").QueryRunner) {
+	logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: QueryRunner) {
 		// console.log("\n-DatabaseORMLogger-logQuerySlow HERE ===> ", {time, query, parameters, queryRunner})
 		// throw new Error("Method not implemented.");
 	}
-	logSchemaBuild(message: string, queryRunner?: import("typeorm").QueryRunner) {
+	logSchemaBuild(message: string, queryRunner?: QueryRunner) {
 		// console.log("\n-DatabaseORMLogger-logSchemaBuild HERE ===> ", {queryRunner})
 		// throw new Error("Method not implemented.");
 	}
-	logMigration(message: string, queryRunner?: import("typeorm").QueryRunner) {
+	logMigration(message: string, queryRunner?: QueryRunner) {
 		// console.log("\n-DatabaseORMLogger-logMigration HERE ===> ", {queryRunner})
 		// throw new Error("Method not implemented.");
 	}
-	log(level: "log" | "info" | "warn", message: any, queryRunner?: import("typeorm").QueryRunner) {
+	log(level: "log" | "info" | "warn", message: any, queryRunner?: QueryRunner) {
 		// console.log("\n-DatabaseORMLogger-log HERE ===> ", {queryRunner})
 		// throw new Error("Method not implemented.");
 	}

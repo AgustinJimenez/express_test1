@@ -3,13 +3,18 @@ import http from "http"
 import AppSetup from "./setup/AppSetup"
 import "reflect-metadata"
 import listEndpoints from "express-list-endpoints"
+import ExceptionSetup from "./setup/ExceptionSetup"
 
 const App = async () => {
 	const HOST: string = process.env.SERVER_HOST
 	const PORT: number = +process.env.SERVER_PORT
 	const isProduction: boolean = process.env.IS_PRODUCTION === "true"
 	const app: Express = express()
-	await AppSetup(app)
+	try {
+		await AppSetup(app)
+	} catch (error) {
+		ExceptionSetup(app, error)
+	}
 	// list all endpoints to console
 	if (!isProduction) console.log(listEndpoints(app))
 	// const httpsOptions: https.ServerOptions = {}
