@@ -121,10 +121,28 @@ export default class TestingController {
 				where: (query: any) => {
 					if (!!request.body.from) query.where(`User__exercises.date >= :date_from`, { date_from: request.body.from })
 					if (!!request.body.to) query.where(`User__exercises.date <= :date_to`, { date_to: request.body.to })
-					//if (!!request.body.limit) query.take(request.body.limit)
+					// if (!!request.body.limit) query.take(request.body.limit)
 				},
 			})
 			return response.json({ ...user, exercisesCount: user.exercises.length })
+		},
+	]
+
+	public static upload_file_form = () => [
+		async (request: Request, response: Response, _next: NextFunction) => {
+			return response.render("Testing/views/file_form.html")
+		},
+	]
+
+	public static upload_file = () => [
+		async (request: any, response: Response, _next: NextFunction) => {
+			//console.log("HERE ===> ", { body: request.body, file: request.file })
+
+			return response.json({
+				fieldname: request.file.fieldname,
+				filename: request.file.filename,
+				size: request.file.size,
+			})
 		},
 	]
 }

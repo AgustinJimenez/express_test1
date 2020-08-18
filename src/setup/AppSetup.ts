@@ -19,7 +19,7 @@ export default async (app: express.Application): Promise<void> => {
 	])
 		.engine("html", consolidate.ejs)
 		.set("view engine", "html")
-		.set("views", `${__dirname}/modules`)
+		.set("views", `${__dirname}/../modules`)
 
 	await CronJobsSetup()
 	// register all application routes
