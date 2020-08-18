@@ -28,10 +28,10 @@ yarn
 cp .env.sample .env
 ```
 
--   SERVE
+-   SERVE DEV
 
 ```
-yarn dev
+yarn start
 ```
 
 # PRODUCTION DEPLOY
