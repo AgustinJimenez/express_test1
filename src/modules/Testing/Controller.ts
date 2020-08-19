@@ -59,7 +59,7 @@ export default class TestingController {
 		async (request: Request, response: Response, _next: NextFunction) => {
 			let new_user: User
 			try {
-				new_user = await User.create({ username: request.body.username }).save()
+				new_user = await User.create({ username: request.body.username })
 			} catch (e) {
 				return response.status(BAD_REQUEST).send()
 			}
@@ -69,15 +69,10 @@ export default class TestingController {
 	]
 	/*
 		@url: api/v1/exercise/users
-		@params-example:
-		{
-			"username": "John Doe"
-		} 
 	*/
 	public static users = () => [
 		async (_request: Request, response: Response, _next: NextFunction) => {
-			const users: User[] = await User.find()
-
+			const users: User[] = await User.findAll()
 			response.json(users)
 		},
 	]
@@ -94,6 +89,7 @@ export default class TestingController {
 	*/
 	public static add_exercise = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
+			/* 
 			Exercise.create({
 				user: request.body.userId,
 				description: request.body.description,
@@ -104,6 +100,7 @@ export default class TestingController {
 			const user = await User.find({ relations: ["exercises"], where: { id: request.body.userId } })
 
 			response.json(user)
+ */
 		},
 	]
 	/*
@@ -115,6 +112,7 @@ export default class TestingController {
 	*/
 	public static exercise_log = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
+			/* 	
 			const user: User = await User.findOne(request.body.userId, {
 				relations: ["exercises"],
 
@@ -125,6 +123,7 @@ export default class TestingController {
 				},
 			})
 			return response.json({ ...user, exercisesCount: user.exercises.length })
+ */
 		},
 	]
 
