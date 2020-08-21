@@ -1,5 +1,4 @@
 import dotenv from "dotenv"
-import { EntitiesList } from "../entities"
 
 dotenv.config()
 
@@ -17,8 +16,7 @@ export default {
 	username,
 	password,
 	database,
-	entities: EntitiesList,
 	synchronize: true,
 	logging: ["query"], // ["all"]
-	//logger: new DatabaseORMLogger(), // "file",
+	// logger: new DatabaseORMLogger(), // "file",
 }

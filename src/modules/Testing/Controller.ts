@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express"
 import { BAD_REQUEST } from "http-status-codes"
 import dns from "dns"
-import { User } from "../../entities/User"
-import { Exercise } from "../../entities/Exercise"
+import User from "../../entities/User"
+import Exercise from "../../entities/Exercise"
 import { MoreThan, QueryBuilder } from "typeorm"
 export default class TestingController {
 	/*
@@ -89,18 +89,21 @@ export default class TestingController {
 	*/
 	public static add_exercise = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			/* 
 			Exercise.create({
-				user: request.body.userId,
+				user_id: request.body.userId,
 				description: request.body.description,
 				duration: request.body.duration,
 				date: request.body.date,
-			}).save()
+			})
 
-			const user = await User.find({ relations: ["exercises"], where: { id: request.body.userId } })
+			const user = await User.findByPk(request.body.userId, {
+				include: [
+					{ model: Exercise, as: "Exercises" }, // load the profile picture.
+					// Notice that the spelling must be the exact same as the one in the association
+				],
+			})
 
 			response.json(user)
- */
 		},
 	]
 	/*
