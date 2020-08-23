@@ -12,6 +12,6 @@ export default (app: Application) =>
 		.post("/exercise/new-user", TestingController.new_user())
 		.get("/exercise/users", TestingController.users())
 		.post("/exercise/add", TestingController.add_exercise())
-		.post("/exercise/log", TestingController.exercise_log())
+		.get("/exercise/log", TestingController.exercise_log())
 		.get("/upload_file", TestingController.upload_file_form())
 		.post("/upload_file", upload.single("upfile"), TestingController.upload_file())

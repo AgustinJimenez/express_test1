@@ -6,11 +6,8 @@ import compression from "compression"
 import * as consolidate from "consolidate"
 import RouterSetup from "./RouterSetup"
 import CronJobsSetup from "./CronJobsSetup"
-import { createConnection } from "typeorm"
-import DatabaseConfig from "../config/DatabaseConfig"
 
 export default async (app: express.Application): Promise<void> => {
-	await createConnection(DatabaseConfig)
 	app.use([
 		compression(),
 		helmet(),
