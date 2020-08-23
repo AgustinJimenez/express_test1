@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from "express"
 import { BAD_REQUEST, NOT_FOUND } from "http-status-codes"
 import dns from "dns"
 import { User, Exercise } from "../../entities"
-import { MoreThan, QueryBuilder } from "typeorm"
+import { Op, Sequelize } from "sequelize"
+
 export default class TestingController {
 	/*
 		@url: /api/v1/timestamp/:date_string?
@@ -118,26 +119,31 @@ export default class TestingController {
 	*/
 	public static exercise_log = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
+			const whereExerciseDateBetween = []
+			if (!!request.body.from) whereExerciseDateBetween.push(request.body.from)
+			if (!!request.body.to) whereExerciseDateBetween.push(request.body.to)
+
+			const exercisesWhereConditions: any = {}
+			if (whereExerciseDateBetween.length === 2)
+				exercisesWhereConditions["date"] = {
+					[Op.between]: whereExerciseDateBetween,
+				}
+
 			const user: any = await User.findOne({
 				where: {
 					id: request.body.userId,
 				},
-				include: "exercises",
+				attributes: { exclude: ["createdAt", "updatedAt"] },
+				include: [
+					{
+						association: "exercises",
+						attributes: { exclude: ["createdAt", "updatedAt"] },
+						limit: request.body.limit,
+						where: exercisesWhereConditions,
+					},
+				],
 			})
-			if (!user) response.status(NOT_FOUND)
-
-			/* 
-{
-				relations: ["exercises"],
-
-				where: (query: any) => {
-					if (!!request.body.from) query.where(`User__exercises.date >= :date_from`, { date_from: request.body.from })
-					if (!!request.body.to) query.where(`User__exercises.date <= :date_to`, { date_to: request.body.to })
-					// if (!!request.body.limit) query.take(request.body.limit)
-				},
-			}
- */
-
+			if (!user) return response.sendStatus(NOT_FOUND)
 			return response.json({ ...user.toJSON(), exercisesCount: user.exercises.length })
 		},
 	]
