@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express"
-import { BAD_REQUEST } from "http-status-codes"
+import { BAD_REQUEST, NOT_FOUND } from "http-status-codes"
 import dns from "dns"
-import User from "../../entities/User"
-import Exercise from "../../entities/Exercise"
+import { User, Exercise } from "../../entities"
 import { MoreThan, QueryBuilder } from "typeorm"
 export default class TestingController {
 	/*
@@ -49,6 +48,7 @@ export default class TestingController {
 		},
 	]
 	/*
+		@description: create a user.
 		@url: /api/v1/exercise/new-user
 		@params-example:
 		{
@@ -57,7 +57,7 @@ export default class TestingController {
 	*/
 	public static new_user = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			let new_user: User
+			let new_user: any
 			try {
 				new_user = await User.create({ username: request.body.username })
 			} catch (e) {
@@ -68,16 +68,18 @@ export default class TestingController {
 		},
 	]
 	/*
+		@description: retrieve all users from database
 		@url: api/v1/exercise/users
 	*/
 	public static users = () => [
 		async (_request: Request, response: Response, _next: NextFunction) => {
-			const users: User[] = await User.findAll()
+			const users: any[] = await User.findAll()
 			response.json(users)
 		},
 	]
 
 	/*
+	@description: add a exercise to a user
 	@url: /api/v1/exercise/add
 	@params-example:
 	{
@@ -85,7 +87,7 @@ export default class TestingController {
 		"description": "Description A",
 		"duration": 154,
 		"date": "2020-08-15 22:30:00"
-	} 
+	}
 	*/
 	public static add_exercise = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
@@ -107,6 +109,7 @@ export default class TestingController {
 		},
 	]
 	/*
+	@description: retrieve a user exercises log
 	@url: /api/v1/exercise/log
 	@params-example:
 	{
@@ -115,8 +118,16 @@ export default class TestingController {
 	*/
 	public static exercise_log = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			/* 	
-			const user: User = await User.findOne(request.body.userId, {
+			const user: any = await User.findOne({
+				where: {
+					id: request.body.userId,
+				},
+				include: "exercises",
+			})
+			if (!user) response.status(NOT_FOUND)
+
+			/* 
+{
 				relations: ["exercises"],
 
 				where: (query: any) => {
@@ -124,9 +135,10 @@ export default class TestingController {
 					if (!!request.body.to) query.where(`User__exercises.date <= :date_to`, { date_to: request.body.to })
 					// if (!!request.body.limit) query.take(request.body.limit)
 				},
-			})
-			return response.json({ ...user, exercisesCount: user.exercises.length })
+			}
  */
+
+			return response.json({ ...user.toJSON(), exercisesCount: user.exercises.length })
 		},
 	]
 
@@ -138,7 +150,7 @@ export default class TestingController {
 
 	public static upload_file = () => [
 		async (request: any, response: Response, _next: NextFunction) => {
-			//console.log("HERE ===> ", { body: request.body, file: request.file })
+			// console.log("HERE ===> ", { body: request.body, file: request.file })
 
 			return response.json({
 				fieldname: request.file.fieldname,
