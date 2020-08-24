@@ -6,6 +6,8 @@ import { Op, Sequelize } from "sequelize"
 
 export default class TestingController {
 	/*
+		Timestamp Microservice
+		@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice
 		@url: /api/v1/timestamp/:date_string?
 	*/
 	public static timestampMicroserviceForFCC = () => [
@@ -21,6 +23,8 @@ export default class TestingController {
 		},
 	]
 	/*
+		Header Parser Microservice
+		@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/request-header-parser-microservice
 		@url: /api/v1/whoami
 	*/
 	public static whoami = () => [
@@ -33,6 +37,8 @@ export default class TestingController {
 		},
 	]
 	/*
+		URL Shortener Microservice
+		@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/url-shortener-microservice
 		@url: /api/v1/shorturl/new
 		@params-example:
 		{
@@ -49,6 +55,8 @@ export default class TestingController {
 		},
 	]
 	/*
+		Exercise Tracker
+		@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/exercise-tracker
 		@description: create a user.
 		@url: /api/v1/exercise/new-user
 		@params-example:
@@ -69,6 +77,7 @@ export default class TestingController {
 		},
 	]
 	/*
+		@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/exercise-tracker
 		@description: retrieve all users from database
 		@url: api/v1/exercise/users
 	*/
@@ -80,6 +89,8 @@ export default class TestingController {
 	]
 
 	/*
+	Exercise Tracker
+	@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/exercise-tracker
 	@description: add a exercise to a user
 	@url: /api/v1/exercise/add
 	@params-example:
@@ -110,6 +121,8 @@ export default class TestingController {
 		},
 	]
 	/*
+	Exercise Tracker
+	@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/exercise-tracker
 	@description: retrieve a user exercises log
 	@url: /api/v1/exercise/log
 	@params-example:
@@ -147,13 +160,19 @@ export default class TestingController {
 			return response.json({ ...user.toJSON(), exercisesCount: user.exercises.length })
 		},
 	]
-
+	/* 
+	File Metadata Microservice
+	@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/file-metadata-microservice
+	*/
 	public static upload_file_form = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
 			return response.render("Testing/views/file_form.html")
 		},
 	]
-
+	/* 
+	File Metadata Microservice
+	@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/file-metadata-microservice
+	*/
 	public static upload_file = () => [
 		async (request: any, response: Response, _next: NextFunction) => {
 			// console.log("HERE ===> ", { body: request.body, file: request.file })
