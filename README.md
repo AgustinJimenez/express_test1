@@ -1,5 +1,3 @@
-MAIN-ROUTER: src/setup/RouterSetup
-
 # PLUGINS
 
 -   ADD YARN
