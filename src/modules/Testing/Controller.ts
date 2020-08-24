@@ -163,6 +163,7 @@ export default class TestingController {
 	/* 
 	File Metadata Microservice
 	@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/file-metadata-microservice
+	@url: /api/v1/upload_file
 	*/
 	public static upload_file_form = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
@@ -172,6 +173,7 @@ export default class TestingController {
 	/* 
 	File Metadata Microservice
 	@ref: https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/file-metadata-microservice
+	@url: /api/v1/upload_file
 	*/
 	public static upload_file = () => [
 		async (request: any, response: Response, _next: NextFunction) => {
