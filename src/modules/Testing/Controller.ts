@@ -12,7 +12,11 @@ export default class TestingController {
 	*/
 	public static timestampMicroserviceForFCC = () => [
 		async (request: Request, response: Response, _next: NextFunction) => {
-			const date = request.params.date_string ? new Date(request.params.date_string) : new Date()
+			let date: Date = new Date()
+			let date_string: any = request.params.date_string
+
+			if (!!date_string && !isNaN(+date_string)) date = new Date(+date_string)
+			else if (!!date_string) date = new Date(date_string)
 
 			if (isNaN(date.getTime())) return response.json({ error: "Invalid Date" })
 
