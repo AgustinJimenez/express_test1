@@ -9,5 +9,4 @@ const DatabaseSetup: Sequelize = new Sequelize(DatabaseConfig.database, Database
 		//log.info(SQL)
 	},
 })
-export const HELP: string = "help mee here"
 export default DatabaseSetup
