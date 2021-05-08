@@ -44,7 +44,7 @@
 		"reflect-metadata": "^0.1.13",
 		"sequelize": "^6.3.4",
 		"simple-node-logger": "^18.12.23",
-		"typeorm": "^0.2.22"
+		"typeorm": "^0.2.25"
 	},
 	"devDependencies": {
 		"@types/compression": "0.0.36",
